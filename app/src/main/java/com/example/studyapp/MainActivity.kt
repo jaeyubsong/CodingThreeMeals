@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "media playing", Toast.LENGTH_SHORT).show()
             }
             else {
-                mediaPlayer = MediaPlayer.create(applicationContext, R.raw.coconut)
+                mediaPlayer = MediaPlayer.create(applicationContext, R.raw.hyeri_eeing)
                 mediaPlayer.start()
                 Toast.makeText(this, "media playing", Toast.LENGTH_SHORT).show()
             }
@@ -48,10 +48,12 @@ class MainActivity : AppCompatActivity() {
             stopBtn.isEnabled = true
 
             mediaPlayer.setOnCompletionListener {
-                playBtn.isEnabled = true
-                pauseBtn.isEnabled = false
-                stopBtn.isEnabled = false
-                Toast.makeText(this, "end", Toast.LENGTH_SHORT).show()
+//                playBtn.isEnabled = true
+//                pauseBtn.isEnabled = false
+//                stopBtn.isEnabled = false
+                mediaPlayer.seekTo(0)
+                mediaPlayer.start()
+                Toast.makeText(this, "end, go to start", Toast.LENGTH_SHORT).show()
             }
         }
 
