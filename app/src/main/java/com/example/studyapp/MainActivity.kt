@@ -19,6 +19,11 @@ class MainActivity : AppCompatActivity() {
     private var handler:Handler = Handler()
     private var pause:Boolean = false
 
+    override fun onBackPressed() {
+//        super.onBackPressed()
+        Toast.makeText(this, "Back pressed", Toast.LENGTH_SHORT).show()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -65,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 playBtn.isEnabled = true
                 pauseBtn.isEnabled = false
                 stopBtn.isEnabled = true
-                Toast.makeText(this, "medis pause", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "media pause", Toast.LENGTH_SHORT).show()
             }
         }
 
