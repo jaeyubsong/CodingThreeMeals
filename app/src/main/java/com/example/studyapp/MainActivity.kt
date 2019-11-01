@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
 
+        var mp3list = listOf(R.raw.m1, R.raw.m2, R.raw.m3, R.raw.m4, R.raw.m5, R.raw.m6, R.raw.m7, R.raw.m8, R.raw.m9, R.raw.m10, R.raw.m11, R.raw.m12, R.raw.m13)
+        val rnds = (0..12).random()
         // Start the media player
         playBtn.setOnClickListener{
             if(pause) {
@@ -43,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "media playing", Toast.LENGTH_SHORT).show()
             }
             else {
-                mediaPlayer = MediaPlayer.create(applicationContext, R.raw.hyeri_eeing)
+                mediaPlayer = MediaPlayer.create(applicationContext, mp3list[rnds])
                 mediaPlayer.start()
                 Toast.makeText(this, "media playing", Toast.LENGTH_SHORT).show()
             }
