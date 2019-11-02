@@ -174,8 +174,8 @@ class MainActivity : AppCompatActivity() {
 
     @Override
     fun onTimeSet() {
-        var hourOfDay: Int = 15
-        var minute: Int = 53
+        var hourOfDay: Int = 18
+        var minute: Int = 48
         var second: Int = 0
 
         var c: Calendar = Calendar.getInstance()
