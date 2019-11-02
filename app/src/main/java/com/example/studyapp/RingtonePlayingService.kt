@@ -21,7 +21,7 @@ class RingtonePlayingService : Service() {
     override fun onCreate() {
         super.onCreate()
         val notificationHelper: NotificationHelper = NotificationHelper(this)
-        val nb: NotificationCompat.Builder = notificationHelper.getChannel1Notification("1", "b")
+        val nb: NotificationCompat.Builder = notificationHelper.getChannel1Notification("HEYYYYYYYY", "TURN ME OFF")
         val notification: Notification = nb.build()
         notificationHelper.getManager().notify(1, notification)
         startForeground(1, notification)
