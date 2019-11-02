@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
@@ -25,10 +26,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var runnable:Runnable
     private var handler:Handler = Handler()
     private var pause:Boolean = false
+    private lateinit var audio: AudioManager
 
     private lateinit var mNotificationHelper: NotificationHelper
-
-
 
     override fun onBackPressed() {
 //        super.onBackPressed()
@@ -41,6 +41,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         onTimeSet()
         mNotificationHelper = NotificationHelper(this)
+
+        //Adjust volume
+        audio = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        audio.setStreamVolume(AudioManager.STREAM_MUSIC, audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC), AudioManager.FLAG_ALLOW_RINGER_MODES)
+
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
