@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -19,6 +20,10 @@ class MainActivity : AppCompatActivity() {
     private var handler:Handler = Handler()
     private var pause:Boolean = false
 
+    private lateinit var mNotificationHelper: NotificationHelper
+
+
+
     override fun onBackPressed() {
 //        super.onBackPressed()
         Toast.makeText(this, "Back pressed", Toast.LENGTH_SHORT).show()
@@ -28,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        mNotificationHelper = NotificationHelper(this)
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -94,6 +101,28 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "media stop", Toast.LENGTH_SHORT).show()
             }
         }
+
+
+        buttonChannel1.setOnClickListener {
+            sendOnChannel1(edittext_title.text.toString(), edittext_message.text.toString())
+        }
+
+        buttonChannel2.setOnClickListener {
+            sendOnChannel2(edittext_title.text.toString(), edittext_message.text.toString())
+        }
+
+
+
+    }
+
+    fun sendOnChannel1(title: String, message: String) {
+        val nb: NotificationCompat.Builder = mNotificationHelper.getChannel1Notification(title, message)
+        mNotificationHelper.getManager().notify(1, nb.build())
+    }
+
+    fun sendOnChannel2(title: String, message: String) {
+        val nb: NotificationCompat.Builder = mNotificationHelper.getChannel1Notification(title, message)
+        mNotificationHelper.getManager().notify(2, nb.build())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
