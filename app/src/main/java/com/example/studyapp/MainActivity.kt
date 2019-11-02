@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (count >= 49){
             count = 0
-            mediaPlayer.stop()
-            finish()
+            //mediaPlayer.stop()
+            android.os.Process.killProcess(android.os.Process.myPid())
         }
         count++
         var click_more: String = String.format("Click %d times more!!!", (50-count))
@@ -198,9 +198,9 @@ class MainActivity : AppCompatActivity() {
 
     @Override
     fun onTimeSet() {
-        var hourOfDay: Int = (12..20).random()
-        var minute: Int = (0..60).random()
-        var second: Int = (0..60).random()
+        var hourOfDay: Int = 10 //(12..20).random()
+        var minute: Int = 24 //(0..60).random()
+        var second: Int = 30 //(0..60).random()
 
         var c: Calendar = Calendar.getInstance()
         c.set(Calendar.HOUR_OF_DAY, hourOfDay)
