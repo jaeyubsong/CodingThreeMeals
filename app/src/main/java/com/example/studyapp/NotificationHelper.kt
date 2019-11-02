@@ -27,7 +27,7 @@ class NotificationHelper : ContextWrapper {
 
     @TargetApi(Build.VERSION_CODES.O)
     fun createChannels() {
-        val channel1 = NotificationChannel(channel1ID, channel1Name, NotificationManager.IMPORTANCE_DEFAULT)
+        val channel1 = NotificationChannel(channel1ID, channel1Name, NotificationManager.IMPORTANCE_HIGH)
         channel1.enableLights(true)
         channel1.enableVibration(true)
         channel1.lightColor = R.color.colorPrimary
@@ -35,7 +35,7 @@ class NotificationHelper : ContextWrapper {
 
         getManager().createNotificationChannel(channel1)
 
-        val channel2 = NotificationChannel(channel2ID, channel2Name, NotificationManager.IMPORTANCE_DEFAULT)
+        val channel2 = NotificationChannel(channel2ID, channel2Name, NotificationManager.IMPORTANCE_HIGH)
         channel2.enableLights(true)
         channel2.enableVibration(true)
         channel2.setLightColor(R.color.colorPrimary)

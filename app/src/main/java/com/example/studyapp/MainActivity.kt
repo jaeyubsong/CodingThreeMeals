@@ -1,5 +1,9 @@
 package com.example.studyapp
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
@@ -12,6 +16,8 @@ import androidx.core.app.NotificationCompat
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import java.text.DateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
+        onTimeSet()
         mNotificationHelper = NotificationHelper(this)
 
         fab.setOnClickListener { view ->
@@ -112,6 +118,12 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        // Alarm manager
+        buttonCancel.setOnClickListener {
+            cancelAlarm()
+        }
+
+
 
     }
 
@@ -121,7 +133,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun sendOnChannel2(title: String, message: String) {
-        val nb: NotificationCompat.Builder = mNotificationHelper.getChannel1Notification(title, message)
+        val nb: NotificationCompat.Builder = mNotificationHelper.getChannel2Notification(title, message)
         mNotificationHelper.getManager().notify(2, nb.build())
     }
 
@@ -156,6 +168,53 @@ class MainActivity : AppCompatActivity() {
         }
         handler.postDelayed(runnable, 1000)
     }
+
+
+
+
+    @Override
+    fun onTimeSet() {
+        var hourOfDay: Int = 15
+        var minute: Int = 53
+        var second: Int = 0
+
+        var c: Calendar = Calendar.getInstance()
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay)
+        c.set(Calendar.MINUTE, minute)
+        c.set(Calendar.SECOND, second)
+
+        updateTimeText(c)
+        startAlarm(c)
+    }
+
+    private fun updateTimeText(c: Calendar) {
+        var timeText: String = "Alarm set for "
+        timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.time)
+
+        tv_alarm.setText(timeText)
+    }
+
+    private fun startAlarm(c: Calendar) {
+        val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent: Intent = Intent(this, AlertReceiver::class.java)
+        val pendingIntent: PendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0)
+
+        // If alarm is set before current time
+        if (c.before(Calendar.getInstance())) {
+            c.add(Calendar.DATE, 1)
+        }
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
+    }
+
+    private fun cancelAlarm() {
+        val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent: Intent = Intent(this, AlertReceiver::class.java)
+        val pendingIntent: PendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0)
+
+        alarmManager.cancel(pendingIntent)
+        tv_alarm.setText("Alarm calceled")
+    }
+
 }
 
 // Creating an extension property to get the media player time
