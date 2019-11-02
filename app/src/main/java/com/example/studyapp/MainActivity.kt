@@ -27,12 +27,19 @@ class MainActivity : AppCompatActivity() {
     private var handler:Handler = Handler()
     private var pause:Boolean = false
     private lateinit var audio: AudioManager
+    private var count: Int = 0
 
     private lateinit var mNotificationHelper: NotificationHelper
 
     override fun onBackPressed() {
-//        super.onBackPressed()
-        Toast.makeText(this, "Back pressed", Toast.LENGTH_SHORT).show()
+        if (count >= 49){
+            count = 0
+            mediaPlayer.stop()
+            finish()
+        }
+        count++
+        var click_more: String = String.format("Click %d times more!!!", (50-count))
+        Toast.makeText(this, click_more, Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
