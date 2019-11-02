@@ -198,9 +198,9 @@ class MainActivity : AppCompatActivity() {
 
     @Override
     fun onTimeSet() {
-        var hourOfDay: Int = (12..20).random()
-        var minute: Int = (0..60).random()
-        var second: Int = (0..60).random()
+        var hourOfDay: Int = 21
+        var minute: Int = 58
+        var second: Int = 40
 
         var c: Calendar = Calendar.getInstance()
         c.set(Calendar.HOUR_OF_DAY, hourOfDay)

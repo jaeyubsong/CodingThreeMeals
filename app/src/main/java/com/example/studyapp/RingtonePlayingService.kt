@@ -6,6 +6,7 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.IBinder
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 
 
@@ -57,7 +58,7 @@ class RingtonePlayingService : Service() {
         // Alarm not running, needs to start
         if (!this.isRunning && curStartId == 1) {
             Log.d(TAG, "not running, id==1")
-            mediaPlayer = MediaPlayer.create(this, R.raw.coconut)
+            mediaPlayer = MediaPlayer.create(this, R.raw.m7)
             mediaPlayer.start()
             Log.d(TAG, "Start media player")
             this.isRunning = true
@@ -74,9 +75,20 @@ class RingtonePlayingService : Service() {
             this.curStartId = 0
         }
 
+        mediaPlayer.setOnCompletionListener {
+//                playBtn.isEnabled = true
+//                pauseBtn.isEnabled = false
+//                stopBtn.isEnabled = false
+            mediaPlayer.seekTo(0)
+            mediaPlayer.start()
+            Toast.makeText(this, "end, go to start", Toast.LENGTH_SHORT).show()
+        }
+
 
 //        return super.onStartCommand(intent, flags, startId)
         return START_NOT_STICKY
     }
+
+
 
 }
