@@ -8,6 +8,7 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
+import android.view.KeyEvent
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
@@ -40,6 +41,17 @@ class MainActivity : AppCompatActivity() {
         count++
         var click_more: String = String.format("Click %d times more!!!", (50-count))
         Toast.makeText(this, click_more, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
+            audio.setStreamVolume(AudioManager.STREAM_MUSIC, audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC), AudioManager.FLAG_ALLOW_RINGER_MODES)
+            return true
+        }else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP){
+            audio.setStreamVolume(AudioManager.STREAM_MUSIC, audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC), AudioManager.FLAG_ALLOW_RINGER_MODES)
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
